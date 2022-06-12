@@ -20,12 +20,12 @@
 
 ## TODO LIST
 
-1. update readme title **murage**
-2. update package.json name and description **murage**
-3. user models, additional properties **murage**
-4. models, additional models. **murage**
+1. update readme title - **murage**
+2. update package.json name and description - **murage**
+3. user models, additional properties - **murage**
+4. models, additional models. - **murage**
 5. routes
-6. html pages in frontend **murage**
+6. html pages in frontend - **murage**
 7. frontend styling in css
 
 NB: sample frontend page and imports in frontend i.e index.html
