@@ -4,33 +4,49 @@
 <head>
     <meta charset="utf-8">
 	</head>
-  <div class="account-page">
+	
 	<div class="container">
-		<div class="row">
-			<div class="col-2">
-				<img src="images/image1.png" width="100%">
-			</div>
-			<div class="col-2">
-				<div class="form-container">
-					<div class="form-btn">
-						<span onclick="login()">Login</span>
-						<span onclick="register()">Register</span>
-						<hr id="Indicator">
-					</div>
-					<form id="LoginForm">
-						<input type="text" placeholder="Username">
-						<input type="password" placeholder="Password">
-						<button type="submit" class="btn">Login</button>
-						<a href="">Forgot Password</a>
-					</form>
-					<form id="RegForm">
-						<input type="text" placeholder="Username">
-						<input type="email" placeholder="Email">
-						<input type="password" placeholder="Password">
-						<button type="submit" class="btn">Register</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+        <header>Appointment Booking</header>
+
+        <form action="#" id="form1">
+                        <div class="fields">
+                        <div class="input-field">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter your name" required>
+                        </div>
+
+
+                        <div class="input-field">
+                            <label>Email</label>
+                            <input type="text" placeholder="Enter your email" required>
+                        </div>
+                        
+                        <div class="input-field">
+                            <label>Date of Appointment</label>
+                            <input type="date" placeholder="Enter appointment date" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Mobile Number</label>
+                            <input type="number" placeholder="Enter mobile number" required>
+                        </div>
+
+                        <div class="input-field">
+                            <label>Time</label>
+                            <input type="time" placeholder="Enter time of appointment" required>
+                        </div>
+                     </div>
+                     <input type="number" value="1">
+				<a href="" class="btn" id="proceedBtn">Proceed</a>
+        </form>
+    </div>
+  <script>
+        const form = document.querySelector("form")
+        allInput = form.querySelectorAll(".first input");
+
+
+
+
+proceedBtn.addEventListener("click", () => form.classList.remove('secActive'));
+</script>
 </div>
