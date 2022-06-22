@@ -6,6 +6,8 @@ const userModel = new Schema({
     type: String,
     required: true,
   },
+  wallet: { type: Object },
+  appointments: { type: Array, default: [] },
 });
 
 module.exports = model("User", userModel);
