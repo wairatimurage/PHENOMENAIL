@@ -132,7 +132,7 @@ const paymentRoutes = (Payment, Order, Rates) => {
           paymentMethod: req.body.payment.method,
           currency: _newPayment.currency,
           redirect_url: _origin + "/cart/" + _newPayment._id,
-          logo: _host + "sahara/logo.jpeg",
+          logo: _host + "logo.jpeg",
           totalPayable: _newPayment.totalPayable,
         };
         const _savedPayment = await _newPayment
