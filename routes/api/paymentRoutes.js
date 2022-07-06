@@ -3,9 +3,12 @@ const passport = require("passport");
 const path = require("path");
 const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
-const { calculateOrderTotals, CustomError, checkAuth } = require("../utility");
-const { usedRates } = require("../utilityLists");
-const { handlePaymentErrors } = require("../errorHandling/errorLogger");
+const {
+  calculateOrderTotals,
+  CustomError,
+  checkAuth,
+} = require("../../utility");
+const { handlePaymentErrors } = require("../../errorHandlers");
 require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 
 const flutterwaveCall = async (_data) => {

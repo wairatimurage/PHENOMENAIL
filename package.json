@@ -12,13 +12,16 @@
   "author": "wanjiku",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
+    "dotenv": "^16.0.1",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
     "mongoose": "^6.1.5",
     "morgan": "^1.10.0",
     "passport": "^0.5.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
