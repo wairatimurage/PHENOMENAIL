@@ -2,7 +2,7 @@ const availableTime = (date, appointments) => {
   const _date = new Date(date);
 };
 
-export const toggleModal = (event) => {
+const toggleModal = (event) => {
   event.preventDefault();
   let modalContainer = document.querySelectorAll(".modal");
   let targetModalId = event.target.getAttribute("data-target");
@@ -11,6 +11,6 @@ export const toggleModal = (event) => {
   modalContainer.forEach((_modal) => _modal.classList.toggle("fade"));
 };
 
-const makePayment = () => {
-  console.log("payment: ");
+const handleResponseErrors = (_err) => {
+  console.log(_err);
 };

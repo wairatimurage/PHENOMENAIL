@@ -1,22 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
     <script src="./form.js"></script>
+    <script src="./js/apiCalls.js"></script>
+    <script src="./js/utilityFunctions.js"></script>
     <title>Admin</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <section id="admin-details">
-        <p id="salon-name"></p>
-        <p id="role"></p>
+      <!-- <p id="salon-name"></p>
+      <p id="role"></p> -->
     </section>
-</body>
-<script>
-    console.log(samplesalons);
-</script>
 
+    <div class="table-responsive">
+      <button
+        class="btn btn-outline-dark"
+        data-target="#add-salon-modal"
+        onClick="toggleModal(event)"
+      >
+        Add Salon
+      </button>
+      <table id="salons-list-table" class="table table-centered"></table>
+    </div>
+  </body>
+  <div class="modal container hide" id="add-salon-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          class="close-modal"
+          data-dismiss="modal"
+          data-target="#add-salon-modal"
+          onclick="toggleModal(event)"
+        >
+          x
+        </button>
+        <h2 class="modal-title">New Salon</h2>
+      </div>
+
+      <div class="modal-body">
+        <form action="" onsubmit="addSalonFunc()">
+          <div class="form-group">
+            <label for="name">Name: </label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="salon-name"
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email: </label>
+            <input
+              type="email"
+              name="email"
+              id="salon-email"
+              class="form-control"
+            />
+          </div>
+          <div class="form-group">
+            <label for="salon-longitude">Longitude: </label>
+            <input type="text" class="form-control" id="salon-longitude" />
+          </div>
+          <div class="form-group">
+            <label for="salon-salon-latitude">Latitude: </label>
+            <input type="text" class="form-control" id="salon-latitude" />
+          </div>
+          <div class="form-group modal-buttons">
+            <button
+              class="btn modal-save-btn"
+              type="submit"
+              onclick="addSalonFunc(event)"
+            >
+              Create Record
+            </button>
+            <!-- <button class="btn modal-cancel-btn" onclick="toggleModal">
+              Cancel
+            </button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    // helper functions
+    const addSalonFunc = (event) => {
+      event.preventDefault();
+      const newSalon = {
+        name: document.getElementById("salon-name").value,
+        wallet: {},
+        location: {
+          longitude: document.getElementById("salon-longitude").value,
+          latitude: document.getElementById("salon-latitude").value,
+        },
+        email: document.getElementById("salon-email").value,
+        operationalHours: { open: 8, closing: 5 },
+        appointments: [],
+      };
+
+      console.log("payment: ", newSalon);
+      addSalon(newSalon)
+        .then((_new) => {
+          if (_new.error) {
+            return alert("Sorry an error occured. Please try again.");
+          }
+          console.log(_new);
+        })
+        .catch(handleResponseErrors);
+    };
+
+    const populateSalonsList = (_list) => {
+      let table = document.getElementById("salons-list-table");
+      console.log(_list, table);
+
+      //   document.getElementById("fare-table-header").innerHTML = `
+      //     <button data-toggle="modal" data-target="#add-route" class=" mb-1 btn btn-secondary">Add Route</button>
+      //     <button data-toggle="modal" data-target="#add-route-destination" onclick="onAddDestinationClick()" class="btn btn-secondary mb-1 " route=${currentRoute}>Add Destination</button>
+      //   `;
+
+      table.textContent = "";
+
+      let theader = table.createTHead();
+      let theaderRow = theader.insertRow();
+      theaderRow.innerHTML = `<th>Name</th>
+    <th>Email</th>
+    <th colspan="2">Location</th>`;
+
+      for (let _salon of _list) {
+        let row = table.insertRow();
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${_salon.name}</h5>`;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${_salon.email}</h5>
+                                   `;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${
+          _salon.location && _salon.location.latitude
+        }</h5>
+                                    <span class="text-muted font-13">Latitude</span>`;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${
+          _salon.location && _salon.location.longitude
+        }</h5>
+                                    <span class="text-muted font-13">Longitude</span>`;
+        row.insertCell().innerHTML = `<a href="#" data-toggle="modal" data-target="#edit-fare" class="action-icon" onclick="onFareEditClick()"> <i route-value=${route[0]} class="mdi mdi-square-edit-outline"></i></a>
+                                   <a href="#" class="action-icon" data-toggle="modal" data-target="#route-delete" onclick="onFareDeleteClick()""> <i route-value=${route[0]} class="mdi mdi-delete"></i></a>`;
+      }
+    };
+
+    // api calls
+    fetchSalons()
+      .then((_res) => {
+        console.log("some: ", _res);
+        populateSalonsList(_res);
+      })
+      .catch(handleResponseErrors);
+  </script>
 </html>
+\

@@ -111,21 +111,22 @@
         <hr />
       </div>
     </div>
-    <div className="modal container hide" id="view-account-modal">
-      <div classNa="modal-content">
-        <div className="modal-header">
+    <div class="modal container hide" id="view-account-modal">
+      <div class="modal-content">
+        <div class="modal-header">
           <button
-            className="close-modal"
+            class="close-modal"
             data-dismiss="modal"
             data-target="#view-account-modal"
             onClick="toggleModal()"
+            oncontextmenu="event.preventDefault();"
           >
             x
           </button>
-          <h2 className="modal-title">Make Booking</h2>
+          <h2 class="modal-title">Make Booking</h2>
         </div>
 
-        <div className="modal-body">
+        <div class="modal-body">
           <form action="" onsubmit="makePayment">
             <div class="form-group">
               <label for="name">Name: </label>

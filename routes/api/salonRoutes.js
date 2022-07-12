@@ -34,6 +34,7 @@ const salonRoutes = (Salon, Booking) => {
           ...req.body,
           createdOn: new Date(),
         });
+        console.log("called: ", _newSalon, req.body);
 
         _newSalon.save((err) => {
           if (err) throw err;

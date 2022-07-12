@@ -1,3 +1,10 @@
+:root {
+  --primary: #6a6a6a;
+  --cool-black: #0e1a25;
+  --bg-grey: #ecf0f3;
+  --text-muted: #a9a9a9;
+}
+
 /* 
  * Always set the map height explicitly to define the size of the div element
  * that contains the map. 
@@ -15,6 +22,52 @@ body {
   margin: 0;
   padding: 0;
 }
+.text-muted {
+  color: #a7a5a5;
+}
+.fade {
+  background-color: #00000080;
+  transition: opacity 0.15s linear;
+}
+.hide {
+  display: none;
+}
+
+/* buttons styling  */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.375rem 0.75rem;
+  margin: 0 5px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  -webkit-transition: color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.radial-btn {
+  border-radius: 20px;
+}
+
+.btn-outline-dark {
+  color: #0e1a25;
+  border-color: #0e1a25;
+}
+
+/* button styling end */
 
 /* modal styles */
 .modal {
@@ -130,10 +183,11 @@ body {
 }
 .modal-save-btn {
   color: #fff;
-  background-color: var(--primary);
+  background-color: var(--cool-black);
 }
 .modal-span {
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 1.1em;
 }
 
 @media (min-width: 576px) {
@@ -143,3 +197,148 @@ body {
   }
 }
 /* modal styles end */
+
+/* form styling */
+
+.form-group {
+  margin-top: 1rem;
+}
+.form-row {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  gap: 1rem;
+  /* margin-right: -5px;
+  margin-left: -5px; */
+}
+
+.form-row > * {
+  width: max-content;
+}
+.form-check {
+  position: relative;
+  display: block;
+  padding-left: 1.25rem;
+  font-size: 0.9rem;
+}
+
+.form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -1.25rem;
+}
+.input-group {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
+}
+
+.form-control {
+  display: block;
+  width: 95%;
+  /* width: 100%; */
+  /* height: calc(1.5em + .75rem + 2px); */
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  margin-top: 0.3rem;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  -webkit-transition: border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.form-check {
+  position: relative;
+  display: block;
+  padding-left: 0.2rem;
+  margin-top: 0.5rem;
+}
+
+.form-check-input {
+  position: absolute;
+  margin-top: 0.3rem;
+  margin-left: -1.25rem;
+}
+
+.form-inline .form-control {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+@media (max-width: 480px) {
+  .form-row .form-group:not(:nth-child(1)) {
+    margin-top: 0 !important;
+  }
+  .form-row > * {
+    width: 100%;
+  }
+}
+
+/* form styling end */
+
+/* table styles */
+
+.table {
+  margin-bottom: 1.5rem;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  color: #6c757d;
+}
+.table tr h5 {
+  font-weight: 500;
+  font-size: 1em;
+}
+.table th,
+.table td {
+  white-space: nowrap;
+  padding: 0.5rem 0.875rem;
+  font-size: 1em;
+  vertical-align: middle;
+  text-align: center;
+  border-bottom: 1px solid #d6d8dc;
+}
+
+.table td span {
+  display: block;
+  margin: 0.2rem;
+}
+
+/* .table td > span.text-muted {
+  font-size: 0.8rem;
+  color: #98a6ad;
+} */
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #eef2f7;
+  border-top: 2px solid #eef2f7;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #eef2f7;
+}
+
+.table tr:hover {
+  color: #6c757d;
+  background-color: #e7e9f0;
+}
+
+@media (max-width: 1366.98px) {
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+/* table styles end */

@@ -17,5 +17,8 @@ router.use("/api/payment", paymentRoutes);
 
 // frontend routes
 router.get("/", (req, res) => res.sendFile("index.html"));
+router.get("/admin", (req, res) =>
+  res.sendFile(path.join(__dirname, "../frontend/admin.html"))
+);
 
 module.exports = router;
