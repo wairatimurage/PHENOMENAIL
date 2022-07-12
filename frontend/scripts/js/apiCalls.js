@@ -22,11 +22,12 @@ const makePayment = () => {
   }).then((_res) => _res.json());
 };
 
-const prepaidDetails = () => {
-  return fetch(apiUrl + "/api/payment").then((_res) => _res.json());
+const prepaidDetails = (_id) => {
+  return fetch(apiUrl + "/api/payment" + _id).then((_res) => _res.json());
 };
 
 // fetch details of payment already made
+// {payable: 33, clientDetails: {id, ema}}
 const alreadyPaid = () => {
   return fetch(apiUrl + "/api/payment/already-paid", {
     method: "POST",

@@ -13,11 +13,10 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <script src="/js/maps.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqiqIAaO0myc-5iOvINoYFZvmZLXDWsuU&callback=initMap&v=weekly"
-      defer
+      async
     ></script>
   </head>
 
@@ -108,20 +107,52 @@
               affordably!
             </p>
           </div>
-          <div class="footer-col-3">
-            <h3>Useful Links</h3>
-            <ul>
-              <li>Coupons</li>
-              <li>Blog Post</li>
-              <li>Return Policy</li>
-              <li>Join Affiliate</li>
-            </ul>
-          </div>
         </div>
         <hr />
       </div>
     </div>
+    <div className="modal container hide" id="view-account-modal">
+      <div classNa="modal-content">
+        <div className="modal-header">
+          <button
+            className="close-modal"
+            data-dismiss="modal"
+            data-target="#view-account-modal"
+            onClick="toggleModal()"
+          >
+            x
+          </button>
+          <h2 className="modal-title">Make Booking</h2>
+        </div>
 
+        <div className="modal-body">
+          <form action="" onsubmit="makePayment">
+            <div class="form-group">
+              <label for="name">Name: </label>
+              <input type="text" class="form-control" name="name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email: </label>
+              <input type="email" name="email" id="email" />
+            </div>
+            <div class="form-group">
+              <label for="date">Date: </label>
+              <input
+                type="date"
+                name="appointment-date"
+                id="appointment-date"
+              />
+            </div>
+            <div class="form-group">
+              <button class="btn" type="submit" onclick="makePayment()">
+                Proceed To Payment
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="/js/maps.js"></script>
     <!-- js for toggle menu -->
     <script>
       var MenuItems = document.getElementById("MenuItems");

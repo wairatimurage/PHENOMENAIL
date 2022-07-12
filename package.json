@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "Cosmetic Beautician project",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,7 +9,7 @@
     "start:dev": "nodemon server.js",
     "gen:keypair": "node cryptography/generateKeypair.js"
   },
-  "author": "wanjiku",
+  "author": "murage",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.27.2",

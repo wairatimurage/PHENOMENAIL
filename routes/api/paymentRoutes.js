@@ -129,12 +129,10 @@ const paymentRoutes = (Payment, Order, Rates) => {
           _refId,
           customer: {
             email: _user.email,
-            phonenumber: _user.telephone,
-            name: _user.firstName + " " + _user.lastName,
           },
           paymentMethod: req.body.payment.method,
           currency: _newPayment.currency,
-          redirect_url: _origin + "/cart/" + _newPayment._id,
+          redirect_url: _origin + "/booking/" + _newPayment._id,
           logo: _host + "logo.jpeg",
           totalPayable: _newPayment.totalPayable,
         };
@@ -167,15 +165,15 @@ const paymentRoutes = (Payment, Order, Rates) => {
     }
   });
   paymentRouter.route("/already-paid").post((req, res) => {
+    req.user = {};
+    // TODO: use req.user id
     Payment.find({
       clientId: req.body.clientDetails.id,
     })
       .then(async (_results) => {
         const _openPayments = _results.find(
           (_payment) =>
-            _payment.completed &&
-            _payment.totalPayable ===
-              calculateOrderTotals(req.body.items, req.body.currency).payable
+            _payment.completed && _payment.totalPayable === req.body.payable
         );
         if (_openPayments) {
           _openPayments.toJSON();

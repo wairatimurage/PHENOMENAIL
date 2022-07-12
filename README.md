@@ -1,4 +1,4 @@
-# Project title
+# Cosmetic Beautician project
 
 ## Tools and setup
 
@@ -20,12 +20,12 @@
 
 ## TODO LIST
 
-1. update readme title - **murage**
-2. update package.json name and description - **murage**
-3. user models, additional properties - **murage**
-4. models, additional models. - **murage**
-5. routes
-6. html pages in frontend - **murage**
-7. frontend styling in css
+1. create admin page - **murage**
+2. create profile page - **murage**
+3. dropdown section for maps onclick - **murage**
+4. flutterwave api key - **murage**
+5. insert markers on map
+6. Onmarker click event
+
 
 NB: sample frontend page and imports in frontend i.e index.html
