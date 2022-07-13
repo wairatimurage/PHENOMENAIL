@@ -19,10 +19,7 @@
                 </div>
                 <nav>
                     <ul id="MenuItems">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="services.html">Services</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="">Contact</a></li>
+                        <li><a href="index.html">Home</a></li>                        
                         <li><a href="account.html">Account</a></li>
                     </ul>
                 </nav>
@@ -41,6 +38,42 @@
             </div>
         </div>
     </div>
+    <div class="container">
+        <header>Appointment Booking</header>
+
+        <form action="#" id="form1">
+            <div class="fields">
+                <div class="input-field">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your name" required>
+                </div>
+
+
+                <div class="input-field">
+                    <label>Email</label>
+                    <input type="text" placeholder="Enter your email" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Date of Appointment</label>
+                    <input type="date" placeholder="Enter appointment date" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Mobile Number</label>
+                    <input type="number" placeholder="Enter mobile number" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Time</label>
+                    <input type="time" placeholder="Enter time of appointment" required>
+                </div>
+            </div>
+            <input type="button" value="1">
+            <a href="" class="btn" id="proceedBtn">Proceed</a>
+        </form>
+    </div>
+
 
     <!-- featured categories -->
     <div class="categories">
@@ -69,6 +102,19 @@
         </div>
 
     </div>
+    
+            <section id="section1">
+                <script>
+                    marker.addListener('mouseover', function() {
+                        infowindow.open(map, this);
+                    });
+
+                    // assuming you also want to hide the infowindow when user mouses-out
+                    marker.addListener('mouseout', function() {
+                        infowindow.close();
+                    });
+                </script>
+            </section>
 
     <!-- footer -->
     <div class="footer">
@@ -87,15 +133,7 @@
                     <img src="images/footerlogo.jpg">
                     <p>Our Purpose Is To Bring a New Modern Style to the Nails business affordably!</p>
                 </div>
-                <div class="footer-col-3">
-                    <h3>Useful Links</h3>
-                    <ul>
-                        <li>Coupons</li>
-                        <li>Blog Post</li>
-                        <li>Return Policy</li>
-                        <li>Join Affiliate</li>
-                    </ul>
-                </div>
+               
 
             </div>
             <hr>
@@ -116,6 +154,16 @@
                 MenuItems.style.maxHeight = "0px";
             }
         }
+    </script>
+    <!-- js for form -->
+    <script>
+        const form = document.querySelector("form")
+        allInput = form.querySelectorAll(".first input");
+
+
+
+
+        proceedBtn.addEventListener("click", () => form.classList.remove('secActive'));
     </script>
 
 
