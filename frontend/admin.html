@@ -74,6 +74,7 @@
             <button
               class="btn modal-save-btn"
               type="submit"
+              data-target="#add-salon-modal"
               onclick="addSalonFunc(event)"
             >
               Create Record
@@ -105,9 +106,11 @@
       console.log("payment: ", newSalon);
       addSalon(newSalon)
         .then((_new) => {
+          toggleModal(event);
           if (_new.error) {
             return alert("Sorry an error occured. Please try again.");
           }
+          window.location.reload();
           console.log(_new);
         })
         .catch(handleResponseErrors);
