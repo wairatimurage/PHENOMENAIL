@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./scripts/js/utilityFunctions.js"></script>
     <title>Profile</title>
   </head>
   <body>
     <div class="table-responsive">
-      <table id="appointments-table" class="table table-centered "></table>
+      <table id="appointments-table" class="table table-centered"></table>
     </div>
   </body>
   <script>
@@ -20,25 +21,37 @@
     //     mobileNumber: "0721451684",
     //     time: "10pm",
     //   },
-    const populateTable = (table, data) => {
-
-      document.getElementById("fare-table-header").innerHTML = `
-        <button data-toggle="modal" data-target="#add-route" class=" mb-1 btn btn-secondary">Add Route</button>
-        <button data-toggle="modal" data-target="#add-route-destination" onclick="onAddDestinationClick()" class="btn btn-secondary mb-1 " route=${currentRoute}>Add Destination</button>
-      `;
+    const populateTable = (data) => {
       table.textContent = "";
+      let theader = table.createTHead();
+      let theaderRow = theader.insertRow();
+      theaderRow.innerHTML = `<th>Salon Name</th>
+        <th>Service</th>
+        <th>Pricing</th>
+        <th>Date</th>
+        <th>Time</th>`;
 
-      for (let route of chart) {
+      for (let appointment of data) {
+        console.log("sss: ", appointment);
+
         let row = table.insertRow();
-        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${route[0]}</h5>`;
-        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">KES ${route[1]}</h5>
-                                    <span class="text-muted font-13">Price</span>`;
-        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${route[2]}</h5>
-                                    <span class="text-muted font-13">Route</span>`;
-        row.insertCell().innerHTML = `<a href="#" data-toggle="modal" data-target="#edit-fare" class="action-icon" onclick="onFareEditClick()"> <i route-value=${route[0]} class="mdi mdi-square-edit-outline"></i></a>
-                                   <a href="#" class="action-icon" data-toggle="modal" data-target="#route-delete" onclick="onFareDeleteClick()""> <i route-value=${route[0]} class="mdi mdi-delete"></i></a>`;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${appointment.salon.name}</h5>`;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${appointment.appointment.service}</h5>`;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${appointment.appointment.pricing}</h5>`;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${"5:00 pm"}</h5>`;
+        row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${new Date(
+          appointment.appointment.date
+        ).toLocaleDateString("en-GB")}</h5>`;
+
+        // row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">KES ${route[1]}</h5>
+        //                             <span class="text-muted font-13">Price</span>`;
+        // row.insertCell().innerHTML = `<h5 class="font-14 my-1 font-weight-normal">${appointment[2]}</h5>
+        //                             <span class="text-muted font-13">Route</span>`;
+        // row.insertCell().innerHTML = `<a href="#" data-toggle="modal" data-target="#edit-fare" class="action-icon" onclick="onFareEditClick()"> <i route-value=${route[0]} class="mdi mdi-square-edit-outline"></i></a>
+        //                            <a href="#" class="action-icon" data-toggle="modal" data-target="#route-delete" onclick="onFareDeleteClick()""> <i route-value=${route[0]} class="mdi mdi-delete"></i></a>`;
       }
     };
- 
- </script>
+
+    populateTable(sampleAppointments);
+  </script>
 </html>

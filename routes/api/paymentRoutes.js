@@ -14,7 +14,7 @@ require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 const flutterwaveCall = async (_data) => {
   const reqObject = JSON.stringify({
     tx_ref: _data._refId,
-    amount: _data.totalPayable,
+    amount: _data.bookingFee,
     currency: "KES",
     redirect_url: _data.redirect_url,
     payment_options: _data.paymentMethod,
@@ -72,35 +72,40 @@ const flutterwaveVerification = async (_id) => {
     });
 };
 
-const paymentRoutes = (Payment, Order, Rates) => {
+const paymentRoutes = (Payment, Order) => {
   const paymentRouter = express.Router();
 
-  paymentRouter.route("/").post(checkAuth, async (req, res) => {
+  // TODO: add auth check
+  paymentRouter.route("/").post(async (req, res) => {
+    console.log("sss: ", req.body);
     const _origin = req.get("origin");
     const _host = req.protocol + "://" + req.get("host") + "/";
     try {
-      const _user = req.user.toJSON();
+      // const _user = req.user.toJSON();
       const _refId = uuidv4();
 
       const _newPayment = new Payment({
-        clientId: req.body.clientDetails.id,
-        order: { ...req.body, exchangeRates: rates },
+        clientId: req.body.client.email,
+        order: { ...req.body },
         refId: _refId,
         initiatedAt: new Date(),
         completed: false,
         currency: "KES",
-        payment: { method: req.body.payment.method },
+        totalPayable: req.body.appointment.pricing,
+        bookingFee: req.body.appointment.pricing * 0.5,
+        payment: { method: req.body.appointment.paymentMethod },
       });
       //   check for duplicate transactions
       const openPayment = async () => {
         return await Payment.find({
-          clientId: req.body.clientDetails.id,
+          clientId: req.body.client.email,
         }).then((_results) => {
           const _openPayments = _results.find(
             (_payment) =>
               !_payment.completed &&
               _payment.totalPayable === _newPayment.totalPayable &&
-              _payment.payment.method === req.body.payment.method
+              _payment.order.appointment.paymentMethod ===
+                req.body.appointment.paymentMethod
           );
           // console.log("open check: ", _openPayments);
           if (_openPayments) {
@@ -128,9 +133,10 @@ const paymentRoutes = (Payment, Order, Rates) => {
         const _flutterwaveData = {
           _refId,
           customer: {
-            email: _user.email,
+            // email: _user.email,
+            ..._newPayment.order.client,
           },
-          paymentMethod: req.body.payment.method,
+          paymentMethod: req.body.appointment.paymentMethod,
           currency: _newPayment.currency,
           redirect_url: _origin + "/booking/" + _newPayment._id,
           logo: _host + "logo.jpeg",

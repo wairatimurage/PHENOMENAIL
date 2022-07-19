@@ -49,8 +49,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // adding static files
-app.use("/css", express.static(path.join(__dirname, "./frontend/scripts/css")));
-app.use("/js", express.static(path.join(__dirname, "./frontend/scripts/js")));
+app.use("/scripts", express.static(path.join(__dirname, "./frontend/scripts")));
 app.use("/images", express.static(path.join(__dirname, "./frontend/assets")));
 app.use(express.static(path.join(__dirname, "./frontend")));
 

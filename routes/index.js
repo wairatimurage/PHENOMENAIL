@@ -20,5 +20,14 @@ router.get("/", (req, res) => res.sendFile("index.html"));
 router.get("/admin", (req, res) =>
   res.sendFile(path.join(__dirname, "../frontend/admin.html"))
 );
+router.get("/profile", (req, res) =>
+  res.sendFile(path.join(__dirname, "../frontend/profile.html"))
+);
+router.get("/account", (req, res) =>
+  res.sendFile(path.join(__dirname, "../frontend/account.html"))
+);
+router.get("/booking/*", (req, res) =>
+  res.sendFile(path.join(__dirname, "../frontend/checkout.html"))
+);
 
 module.exports = router;

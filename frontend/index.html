@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta charset="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Phenomenail | Online Salon Booking Platform</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="./scripts/css/style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -18,8 +18,8 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqiqIAaO0myc-5iOvINoYFZvmZLXDWsuU&callback=initMap&v=weekly"
       async
     ></script>
-    <script src="./js/apiCalls.js"></script>
-    <script src="./js/utilityFunctions.js"></script>
+    <script src="./scripts/js/apiCalls.js"></script>
+    <script src="./scripts/js/utilityFunctions.js"></script>
   </head>
 
   <body>
@@ -34,7 +34,7 @@
           <nav>
             <ul id="MenuItems">
               <li><a href="index.html">Home</a></li>
-              <li><a href="account.html">Account</a></li>
+              <li><a href="/account">Account</a></li>
             </ul>
           </nav>
           
@@ -51,7 +51,7 @@
             </p>
           </div>
           <div class="col-2">
-            <img src="images/image1.jpg" width="300" height="300" />
+            <img src="/images/image1.jpg" width="300" height="300" />
           </div>
         </div>
       </div>
@@ -64,31 +64,39 @@
             <div class="fields">
                 <div class="input-field">
                     <label>Full Name</label>
-                    <input type="text" placeholder="Enter your name" required>
+                    <input type="text" placeholder="Enter your name" id="booking-fullname" required>
                 </div>
-
-
                 <div class="input-field">
                     <label>Email</label>
-                    <input type="text" placeholder="Enter your email" required>
+                    <input type="text" placeholder="Enter your email" id="booking-email" required>
                 </div>
-
+                <div class="form-group">
+                  <label for="service">Service: </label>
+                  <select name="service" id="service-selector" class="form-control">     
+                  </select>
+                </div>
                 <div class="input-field">
                     <label>Date of Appointment</label>
-                    <input type="date" placeholder="Enter appointment date" required>
+                    <input type="date" placeholder="Enter appointment date" id="booking-date" required>
                 </div>
 
                 <div class="input-field">
                     <label>Mobile Number</label>
-                    <input type="number" placeholder="Enter mobile number" required>
+                    <input type="tel" placeholder="Enter mobile number" id="booking-mobile" required>
                 </div>
-
+                <div class="form-group">
+                  <label for="payment-method">Payment Method</label>
+                  <select name="payment-method" id="payment-method" class="form-control">
+                    <option value="mpesa">Mpesa</option>
+                    <option value="card">Card</option>
+                  </select>
+                </div>
                 <div class="input-field">
                     <label>Time</label>
-                    <input type="time" placeholder="Enter time of appointment" required>
+                    <input type="time" placeholder="Enter time of appointment" id="booking-time" required>
                 </div>
             </div>
-            <input type="button" value="1">
+            <!-- <input type="button" value="1"> -->
             <a href="" class="btn" id="proceedBtn">Proceed</a>
         </form>
     </div>
@@ -215,7 +223,9 @@
     <!-- js for toggle menu -->
     <script>
       var MenuItems = document.getElementById("MenuItems");
-
+      document.getElementById("service-selector").innerHTML = Object.keys(pricing).reduce((_initial,_key)=>{
+        return _initial + `<option value=${_key}>${_key} - ${pricing[_key]})</option>`;
+      },``);
       MenuItems.style.maxHeight = "0px";
 
       function menutoggle() {
@@ -226,8 +236,36 @@
         }
       }
         const form = document.querySelector("form")
+        
         allInput = form.querySelectorAll(".first input");
-        proceedBtn.addEventListener("click", () => form.classList.remove('secActive'));
+      proceedBtn.addEventListener("click", (event) =>{
+        event.preventDefault();
+        const _booking = {
+          salon: {
+            name:document.getElementById("booking-fullname").value,
+          },
+          client:{
+            fullname: document.getElementById("booking-fullname").value,
+            email: document.getElementById("booking-email").value
+          },
+          appointment: {
+            date: document.getElementById("booking-date").value,
+            time: document.getElementById("booking-time").value,
+            service: document.getElementById("service-selector").value,
+            pricing: pricing[document.getElementById("service-selector").value],
+            paymentMethod: document.getElementById("payment-method").value,
+          }
+          
+        }
+        if( verifyBooking(_booking)){
+          makePayment(_booking).then(_data=>{
+            console.log("ss: ", _data)
+            window.open(_data.redirectUrl, "_self");
+            
+          })
+        }
+        form.classList.remove('secActive');
+      });
     </script>
 </body>
 </html>

@@ -11,6 +11,66 @@ const toggleModal = (event) => {
   modalContainer.forEach((_modal) => _modal.classList.toggle("fade"));
 };
 
+const verifyBooking = (_booking) => {
+  if (_booking.client) {
+    if (_booking.client) {
+      if (!_booking.client.fullname) return alert("Enter fullname");
+      if (!_booking.client.email) return alert("Enter email");
+    } else if (_booking.appointment) {
+      if (!_booking.appointment.date && _booking.appointment.date === "")
+        return alert("Enter Date");
+      if (!_booking.appointment.pricing) return alert("Enter Pricing");
+      if (!_booking.appointment.service) return alert("Enter Service");
+      if (!_booking.appointment.time && _booking.appointment.time === "")
+        return alert("Enter Time");
+    }
+    return true;
+  }
+  alert("Client details missing. Please try again");
+};
+
 const handleResponseErrors = (_err) => {
   console.log(_err);
 };
+
+const pricing = {
+  pedicure: 1000,
+  manicure: 500,
+  massage: 3000,
+  naildo: 2000,
+  stickons: 2000,
+  eyebrows: 200,
+};
+
+const sampleAppointments = [
+  {
+    salon: { name: "Nico" },
+    client: {
+      fullname: "Oliver Nico",
+      email: "olivermirimu@gmail.com",
+    },
+    appointment: {
+      date: new Date(),
+      time: new Date(),
+      service: "pedicure",
+      pricing: 1000,
+      paymentMethod: "mpesa",
+    },
+    time: new Date(),
+  },
+  {
+    salon: { name: "Nico" },
+    client: {
+      fullname: "Oliver Nico",
+      email: "olivermirimu@gmail.com",
+    },
+    appointment: {
+      date: new Date(),
+      time: new Date(),
+      service: "pedicure",
+      pricing: 1000,
+      paymentMethod: "card",
+    },
+    time: new Date(),
+  },
+];

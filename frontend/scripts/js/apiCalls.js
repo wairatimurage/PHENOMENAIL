@@ -28,10 +28,10 @@ const fetchSalons = () => {
   );
 };
 
-const makePayment = () => {
+const makePayment = (_booking) => {
   return fetch(apiUrl + "/api/payment", {
     method: "POST",
-    body: JSON.stringify(),
+    body: JSON.stringify(_booking),
     headers: appendHeaders(),
   }).then((_res) => _res.json());
 };
@@ -42,6 +42,7 @@ const prepaidDetails = (_id) => {
   }).then((_res) => _res.json());
 };
 
+console.log("some");
 // fetch details of payment already made
 // {payable: 33, clientDetails: {id, ema}}
 const alreadyPaid = () => {
@@ -64,4 +65,14 @@ const fetchMyBookings = () => {
   return fetch(apiUrl + "/api/salon/my-bookings", {
     headers: appendHeaders(),
   }).then((_res) => _res.json());
+};
+
+const registerAccount = (_user) => {
+  return fetch(`/api/auth/register`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(_user),
+  }).then((_response) => {
+    return _response.json();
+  });
 };
