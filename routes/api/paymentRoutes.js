@@ -77,7 +77,6 @@ const paymentRoutes = (Payment, Order) => {
 
   // TODO: add auth check
   paymentRouter.route("/").post(async (req, res) => {
-    console.log("sss: ", req.body);
     const _origin = req.get("origin");
     const _host = req.protocol + "://" + req.get("host") + "/";
     try {
@@ -95,6 +94,7 @@ const paymentRoutes = (Payment, Order) => {
         bookingFee: req.body.appointment.pricing * 0.5,
         payment: { method: req.body.appointment.paymentMethod },
       });
+
       //   check for duplicate transactions
       const openPayment = async () => {
         return await Payment.find({
@@ -124,9 +124,12 @@ const paymentRoutes = (Payment, Order) => {
             //   "duplicateTransaction"
             // );
           }
+
           return false;
         });
       };
+
+      
       await _newPayment.validateSync();
 
       if (!(await openPayment())) {
@@ -141,11 +144,13 @@ const paymentRoutes = (Payment, Order) => {
           redirect_url: _origin + "/booking/" + _newPayment._id,
           logo: _host + "logo.jpeg",
           totalPayable: _newPayment.totalPayable,
+          bookingFee: _newPayment.bookingFee,
         };
         const _savedPayment = await _newPayment
           .save()
           .then(async (_saved) => _saved);
 
+        console.log("saved: ", _savedPayment);
         const _flutterwave_call = await flutterwaveCall(_flutterwaveData);
         const _updatedPayment = _savedPayment.toJSON();
         _updatedPayment.payment.link = _flutterwave_call.data.link;
@@ -170,11 +175,13 @@ const paymentRoutes = (Payment, Order) => {
       });
     }
   });
+
   paymentRouter.route("/already-paid").post((req, res) => {
+    console.log("sss: ", req.body);
     req.user = {};
     // TODO: use req.user id
     Payment.find({
-      clientId: req.body.clientDetails.id,
+      clientId: req.body.client.email,
     })
       .then(async (_results) => {
         const _openPayments = _results.find(
@@ -183,6 +190,11 @@ const paymentRoutes = (Payment, Order) => {
         );
         if (_openPayments) {
           _openPayments.toJSON();
+          console.log(
+            "some: ",
+            _openPayments.order.payment.refId,
+            _openPayments.refId
+          );
           _openPayments.order.payment.refId = _openPayments.refId;
           await Order.findOne({ "payment.refId": _openPayments.refId }).then(
             (_res) => {

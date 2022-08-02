@@ -1,5 +1,5 @@
 let map;
-
+console.log("ss: ");
 function initMap() {
   if (google) {
     map = new google.maps.Map(document.getElementById("map"), {

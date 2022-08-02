@@ -29,6 +29,7 @@ const fetchSalons = () => {
 };
 
 const makePayment = (_booking) => {
+  console.log("sss: ", _booking);
   return fetch(apiUrl + "/api/payment", {
     method: "POST",
     body: JSON.stringify(_booking),
@@ -45,10 +46,10 @@ const prepaidDetails = (_id) => {
 console.log("some");
 // fetch details of payment already made
 // {payable: 33, clientDetails: {id, ema}}
-const alreadyPaid = () => {
+const alreadyPaid = (_booking) => {
   return fetch(apiUrl + "/api/payment/already-paid", {
     method: "POST",
-    body: JSON.stringify(),
+    body: JSON.stringify(_booking),
     headers: appendHeaders(),
   }).then((_res) => _res.json());
 };
@@ -68,11 +69,32 @@ const fetchMyBookings = () => {
 };
 
 const registerAccount = (_user) => {
-  return fetch(`/api/auth/register`, {
+  return fetch(`/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(_user),
-  }).then((_response) => {
-    return _response.json();
-  });
+  })
+    .then((_response) => {
+      return _response.json();
+    })
+    .catch((_err) => {
+      console.log("err: ", _err);
+      alert("Sorry! An error occured, please try again.");
+    });
+};
+
+const userLogin = (_user) => {
+  console.log("ss: ", _user);
+  return fetch(`/auth/login`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(_user),
+  })
+    .then((_response) => {
+      return _response.json();
+    })
+    .catch((_err) => {
+      console.log("err: ", _err);
+      alert("Sorry! An error occured, please try again.");
+    });
 };

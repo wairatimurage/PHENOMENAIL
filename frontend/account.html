@@ -14,6 +14,7 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
+    <script src="./scripts/js/apiCalls.js"></script>
   </head>
   <body>
     <!-- account page -->
@@ -74,17 +75,17 @@
 
     <!-- js for toggle menu -->
     <script>
-      var MenuItems = document.getElementById("MenuItems");
+      // var MenuItems = document.getElementById("MenuItems");
 
-      MenuItems.style.maxHeight = "0px";
+      // MenuItems.style.maxHeight = "0px";
 
-      function menutoggle() {
-        if (MenuItems.style.maxHeight == "0px") {
-          MenuItems.style.maxHeight = "200px";
-        } else {
-          MenuItems.style.maxHeight = "0px";
-        }
-      }
+      // function menutoggle() {
+      //   if (MenuItems.style.maxHeight == "0px") {
+      //     MenuItems.style.maxHeight = "200px";
+      //   } else {
+      //     MenuItems.style.maxHeight = "0px";
+      //   }
+      // }
     </script>
 
     <!--  -->
@@ -110,7 +111,12 @@
           password: document.getElementById("password").value,
 
         };
-        registerAccount(_user);
+        registerAccount(_user).then(_res=>{
+          if(_res.message){
+            alert(_res.message);
+          }
+          console.log("res: ", _res)
+        });
 
         console.log("user: ", _user);
       })
@@ -128,8 +134,9 @@
           username: document.getElementById("username").value,
           email: document.getElementById("email").value,
           password: document.getElementById("password").value,
-
         };
+
+        userLogin(_user);
 
       })
     </script>

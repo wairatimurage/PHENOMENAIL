@@ -87,6 +87,7 @@
                 <div class="form-group">
                   <label for="payment-method">Payment Method</label>
                   <select name="payment-method" id="payment-method" class="form-control">
+                    <option disabled selected value>-- Select Payment --</option>
                     <option value="mpesa">Mpesa</option>
                     <option value="card">Card</option>
                   </select>
@@ -97,7 +98,9 @@
                 </div>
             </div>
             <!-- <input type="button" value="1"> -->
-            <a href="" class="btn" id="proceedBtn">Proceed</a>
+            <div class="d-flex" style="display: flex; justify-content:center;">
+            <a href="" class="btn" id="proceedBtn">Proceed</a>  <a href="" class="btn bg-purpleish" id="alreadyPaid">Already Paid</a>
+            </div>
         </form>
     </div>
 
@@ -132,7 +135,7 @@
       </div>
     </div>
     
-            <section id="section1">
+            <!-- <section id="section1">
                 <script>
                     marker.addListener('mouseover', function() {
                         infowindow.open(map, this);
@@ -143,7 +146,7 @@
                         infowindow.close();
                     });
                 </script>
-            </section>
+            </section> -->
 
     <!-- footer -->
     <div class="footer">
@@ -225,7 +228,7 @@
       var MenuItems = document.getElementById("MenuItems");
       document.getElementById("service-selector").innerHTML = Object.keys(pricing).reduce((_initial,_key)=>{
         return _initial + `<option value=${_key}>${_key} - ${pricing[_key]})</option>`;
-      },``);
+      },`<option disabled selected value>-- Select Service --</option>`);
       MenuItems.style.maxHeight = "0px";
 
       function menutoggle() {
@@ -257,15 +260,45 @@
           }
           
         }
+        
         if( verifyBooking(_booking)){
+          console.log(_booking)
           makePayment(_booking).then(_data=>{
             console.log("ss: ", _data)
             window.open(_data.redirectUrl, "_self");
-            
           })
         }
         form.classList.remove('secActive');
       });
+
+      document.getElementById("alreadyPaid").addEventListener("click", (event)=>{
+        event.preventDefault();
+        const _booking = {
+          salon: {
+            name:document.getElementById("booking-fullname").value,
+          },
+          client:{
+            fullname: document.getElementById("booking-fullname").value,
+            email: document.getElementById("booking-email").value
+          },
+          appointment: {
+            date: document.getElementById("booking-date").value,
+            time: document.getElementById("booking-time").value,
+            service: document.getElementById("service-selector").value,
+            pricing: pricing[document.getElementById("service-selector").value],
+            paymentMethod: document.getElementById("payment-method").value,
+          }
+          
+        }
+        
+        if( verifyBooking(_booking)){
+          console.log(_booking)
+          alreadyPaid(_booking).then(_data=>{
+            console.log("ss: ", _data)
+            
+          })
+        }
+      })
     </script>
 </body>
 </html>

@@ -8,7 +8,7 @@ const authRoutes = (User) => {
 
   authRouter.route("/login").post(
     passport.authenticate("local", {
-      successRedirect: "/",
+      successRedirect: "/profile",
       failureRedirect: "/",
     })
   );
@@ -18,9 +18,7 @@ const authRoutes = (User) => {
     // request body must contain a password, username and accountType based on account type to be created
     try {
       const salt = await bcrypt.genSalt();
-      if (req.body.password !== req.body.cPassword) {
-        throw new CustomError("Password Mismatch.", "Password Mismatch");
-      }
+      console.log("sal");
       if (!req.body.password || !req.body.email) {
         throw new CustomError(
           "Password and username required.",
@@ -28,7 +26,8 @@ const authRoutes = (User) => {
         );
       }
       // check if username already in use
-      const userExists = await getUserByEmail(req.body.username);
+      const userExists = await getUserByEmail(req.body.email);
+      console.log("exists: ", userExists);
       if (userExists) {
         return res.status(400).json({ message: "Username already in use" });
       }
@@ -37,10 +36,13 @@ const authRoutes = (User) => {
         ...req.body,
         password: hashedPassword,
       });
+
+      console.log("ss: ", user);
+
       user.save((err) => {
         if (err) throw err;
       });
-      return res.status(201).redirect("/");
+      return res.status(201).redirect("/profile");
       // .json({ message: user.username + " account successfully created." });
     } catch (error) {
       res.json({ error: error.message, code: error.name });
@@ -49,7 +51,7 @@ const authRoutes = (User) => {
 
   authRouter.route("/logout").delete((req, res) => {
     req.logOut();
-    req.redirect("/login");
+    req.redirect("/account");
   });
 
   authRouter.route("/current-user").get(checkAuth, async (req, res) => {

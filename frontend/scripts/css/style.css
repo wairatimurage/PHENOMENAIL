@@ -1,5 +1,6 @@
 :root {
   --primary: #6a6a6a;
+  --purple-shade: #b3689b;
   --cool-black: #0e1a25;
   --bg-grey: #ecf0f3;
   --text-muted: #a9a9a9;
@@ -58,6 +59,7 @@ body {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
 .radial-btn {
   border-radius: 20px;
 }
@@ -843,10 +845,10 @@ form input {
 }
 
 form .btn {
-  width: 100%;
+  width: 15rem;
   border: none;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 10px 2rem;
 }
 
 form .btn:focus {
@@ -899,4 +901,7 @@ form a {
   .cart-info p {
     display: none;
   }
+}
+.bg-purpleish {
+  background-color: var(--purple-shade);
 }

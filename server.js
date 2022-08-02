@@ -10,7 +10,7 @@ const initializePassport = require("./passport-config");
 
 // local variables
 const MONGODB_URI = "mongodb://localhost/boilerplate";
-const PORT = 3000;
+const PORT = 3400;
 const app = express();
 const pathToKey = path.join(__dirname, "./cryptography/id_rsa_pub.pem");
 const PUB_KEY = fs.readFileSync(pathToKey, "utf-8");

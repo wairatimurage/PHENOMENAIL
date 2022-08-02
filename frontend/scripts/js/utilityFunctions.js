@@ -42,6 +42,7 @@ const pricing = {
   eyebrows: 200,
 };
 
+
 const sampleAppointments = [
   {
     salon: { name: "Nico" },
