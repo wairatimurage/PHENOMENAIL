@@ -51,7 +51,7 @@ const populateMarkers = () => {
       title:
         "Location Place or Anything that you want to tooltip while hovering",
       icon: "/assets/salon-icon.svg",
-      label: "Sample Salon",
+      label: "salon.svg",
     },
   ].map((_item) => {
     // let marker = new google.maps.Marker(_item);
