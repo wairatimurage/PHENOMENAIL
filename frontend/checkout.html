@@ -4,36 +4,80 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./scripts/js/apiCalls.js"></script>
+    <script async src="/scripts/js/apiCalls.js"></script>
     <!-- <script src="./scripts/js/utilityFunctions.js"></script> -->
     <title>Checkout</title>
   </head>
-  <body></body>
+  <body>
+    <div id="container">
+      <form
+        action=""
+        onsubmit="completeBooking(event)"
+        id="complete-booking-form"
+      ></form>
+    </div>
+  </body>
   <script>
+    let currentOrder = {};
+    const getParams = () => {
+      const _params = window.location.search.replace("?", "").split("&");
+      let _paramsObject;
+      _params.map((_val) => {
+        let _valArray = _val.split("=");
+        _paramsObject = { ..._paramsObject, [_valArray[0]]: _valArray[1] };
+      });
+      return _paramsObject;
+    };
     const _paymentId = window.location.pathname.split("/").slice(-1).toString();
 
     // helper functions
     const setCurrentOrder = (_booking) => {
-      console.log("booking: ", _booking);
+      currentOrder = _booking;
+      document.getElementById("complete-booking-form").innerHTML = `
+        <div class="form-group">
+              <span><b>Salon: </b>${_booking.salon.name}</span>
+            </div>
+            <div class="form-group">
+              <p>Client Details</p>
+              <p><b>Name: </b>${_booking.client.name}</p>
+              <p><b>Email: </b> ${_booking.client.email}</p>
+            </div>
+            <div class="form-group">
+              <p>Appointment</p>
+              <p><b>Date: </b>${_booking.appointment.date}</p>
+              <p><b>Time: </b>${_booking.appointment.time}</p>
+              <p>For ${_booking.appointment.service} services at Ksh.${
+        _booking.appointment.pricing
+      } .</p>
+              <p><b>Pending Balance: </b> ${
+                _booking.appointment.pricing * 0.5
+              } </p>
+              <p><b></b></p>
+            </div>
+            <button class="btn" type="submit" onclick="completeBooking(event)">
+              Finish Booking
+            </button>`;
     };
-    
+
+    const completeBooking = (event) => {
+      event.preventDefault();
+      console.log(currentOrder);
+    };
     // console.log("payment: ", prepaidDetails);
     // // api calls
-    // window.addEventListener("load", (event) => {
-    //   console.log("page is fully loaded", prepaidDetails);
-    // });
-
-    // prepaidDetails(_paymentId, getParams())
-    //   .then((_res) => {
-    //     if (_res.errorMessage) {
-    //       alert(_res.errorMessage);
-    //       return;
-    //     }
-    //     setCurrentOrder(_res);
-    //   })
-    //   .catch((_err) => {
-    //     console.log(_err);
-    //     alert("sorry, an error occured. Please reload this page.");
-    //   });
+    window.addEventListener("load", (event) => {
+      prepaidDetails(_paymentId, getParams())
+        .then((_res) => {
+          if (_res.errorMessage) {
+            alert(_res.errorMessage);
+            return;
+          }
+          setCurrentOrder(_res);
+        })
+        .catch((_err) => {
+          console.log(_err);
+          alert("sorry, an error occured. Please reload this page.");
+        });
+    });
   </script>
 </html>

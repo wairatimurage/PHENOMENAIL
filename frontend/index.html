@@ -13,14 +13,8 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
     />
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqiqIAaO0myc-5iOvINoYFZvmZLXDWsuU&callback=initMap&v=weekly"
-      async
-    ></script>
-    <script src="./scripts/js/apiCalls.js"></script>
-    <script src="./scripts/js/utilityFunctions.js"></script>
-  </head>
+   
+  </head>  
 
   <body>
     <div class="header">
@@ -57,10 +51,12 @@
       </div>
     </div>
     <div id="map"></div>
-    <div class="container">
+    <div class="container hide" id="booking-form-container">
         <header>Appointment Booking</header>
 
-        <form action="#" id="form1">
+        <form action="#" id="booking-form">
+          <input type="text" id="booking-salon" hidden>
+          <input type="text" id="booking-salon-email" hidden>
             <div class="fields">
                 <div class="input-field">
                     <label>Full Name</label>
@@ -222,7 +218,74 @@
         </div>
       </div>
     </div>
-    <script src="/js/maps.js"></script>
+     <!-- <div class="modal container fade" id="book-modal">
+      <div class="modal-content">
+         <div class="modal-header">
+          <button
+            class="close-modal"
+            data-dismiss="modal"
+            data-target="#book-modal"
+            onClick="toggleModal(event)"
+            
+          >
+            x
+          </button>
+          <h2 class="modal-title">Appointment Booking</h2>
+        </div>
+
+        <form action="#" id="form1">
+            <div class="fields">
+                <div class="form-group input-field">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter your name" id="booking-fullname" required>
+                </div>
+                <div class="input-field">
+                    <label>Email</label>
+                    <input type="text" placeholder="Enter your email" id="booking-email" required>
+                </div>
+                <div class="form-group">
+                  <label for="service">Service: </label>
+                  <select name="service" id="service-selector" class="form-control">     
+                  </select>
+                </div>
+                <div class="input-field">
+                    <label>Date of Appointment</label>
+                    <input type="date" placeholder="Enter appointment date" id="booking-date" required>
+                </div>
+
+                <div class="input-field">
+                    <label>Mobile Number</label>
+                    <input type="tel" placeholder="Enter mobile number" id="booking-mobile" required>
+                </div>
+                <div class="form-group">
+                  <label for="payment-method">Payment Method</label>
+                  <select name="payment-method" id="payment-method" class="form-control">
+                    <option disabled selected value>-- Select Payment --</option>
+                    <option value="mpesa">Mpesa</option>
+                    <option value="card">Card</option>
+                  </select>
+                </div>
+                <div class="input-field">
+                    <label>Time</label>
+                    <input type="time" placeholder="Enter time of appointment" id="booking-time" required>
+                </div>
+            </div>
+            <div class="d-flex" style="display: flex; justify-content:center;">
+            <a href="" class="btn" id="proceedBtn">Proceed</a>  <a href="" class="btn bg-purpleish" id="alreadyPaid">Already Paid</a>
+            </div>
+        </form>
+
+      </div>
+      </div> -->
+    
+    <script src="/scripts/js/apiCalls.js"></script>
+    <script src="./scripts/js/utilityFunctions.js"></script>
+    <script  src="/scripts/js/maps.js"></script>
+  
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqiqIAaO0myc-5iOvINoYFZvmZLXDWsuU&callback=initMap&v=weekly"
+    ></script>
     <!-- js for toggle menu -->
     <script>
       var MenuItems = document.getElementById("MenuItems");
@@ -245,7 +308,8 @@
         event.preventDefault();
         const _booking = {
           salon: {
-            name:document.getElementById("booking-fullname").value,
+            name:document.getElementById("booking-salon").value,
+            email: document.getElementById("booking-salon-email").value
           },
           client:{
             fullname: document.getElementById("booking-fullname").value,
@@ -261,9 +325,12 @@
           
         }
         
-        if( verifyBooking(_booking)){
-          console.log(_booking)
+        console.log("sssss: ",(_booking))
+        if(verifyBooking(_booking)){
+          
           makePayment(_booking).then(_data=>{
+            let targetModal = document.getElementById("booking-form-container");
+          targetModal.classList.toggle("hide");
             console.log("ss: ", _data)
             window.open(_data.redirectUrl, "_self");
           })
@@ -299,6 +366,7 @@
           })
         }
       })
-    </script>
+   
+   </script>
 </body>
 </html>

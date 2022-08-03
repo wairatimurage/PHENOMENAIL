@@ -8,8 +8,11 @@ const appendHeaders = () => {
   return headers;
 };
 
-const bookAppointment = (_salon) => {
+const bookAppointment = (_appointment) => {
   return fetch(apiUrl + "/api/salon/booking", {
+    headers: appendHeaders(),
+    method: "POST",
+    body: JSON.stringify(_appointment),
     headers: appendHeaders(),
   }).then((_res) => _res.json());
 };
@@ -37,9 +40,12 @@ const makePayment = (_booking) => {
   }).then((_res) => _res.json());
 };
 
-const prepaidDetails = (_id) => {
-  return fetch(apiUrl + "/api/payment" + _id, {
+const prepaidDetails = (_id, _data) => {
+  return fetch(apiUrl + "/api/payment/" + _id, {
+    method: "POST",
+    // credentials: "include",
     headers: appendHeaders(),
+    body: JSON.stringify(_data),
   }).then((_res) => _res.json());
 };
 

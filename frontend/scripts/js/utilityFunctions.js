@@ -13,10 +13,9 @@ const toggleModal = (event) => {
 
 const verifyBooking = (_booking) => {
   if (_booking.client) {
-    if (_booking.client) {
-      if (!_booking.client.fullname) return alert("Enter fullname");
-      if (!_booking.client.email) return alert("Enter email");
-    } else if (_booking.appointment) {
+    if (!_booking.client.fullname) return alert("Enter fullname");
+    if (!_booking.client.email) return alert("Enter email");
+    if (_booking.appointment) {
       if (!_booking.appointment.date && _booking.appointment.date === "")
         return alert("Enter Date");
       if (!_booking.appointment.pricing) return alert("Enter Pricing");
@@ -41,7 +40,6 @@ const pricing = {
   stickons: 2000,
   eyebrows: 200,
 };
-
 
 const sampleAppointments = [
   {

@@ -129,7 +129,6 @@ const paymentRoutes = (Payment, Order) => {
         });
       };
 
-      
       await _newPayment.validateSync();
 
       if (!(await openPayment())) {
@@ -223,7 +222,8 @@ const paymentRoutes = (Payment, Order) => {
         });
       });
   });
-  paymentRouter.route("/:id").post(checkAuth, async (req, res) => {
+
+  paymentRouter.route("/:id").post(async (req, res) => {
     Payment.findById(req.params.id)
       .then(async (_result) => {
         const _verificationResponse = await flutterwaveVerification(
@@ -237,7 +237,7 @@ const paymentRoutes = (Payment, Order) => {
           };
           await _result.save((_err, _savedData) => {
             if (_err) throw _err;
-            _savedData.order.payment.refId = _savedData.refId;
+            // _savedData.order.payment.refId = _savedData.refId;
             // console.log(_savedData);
             return res.status(201).json(_result.order);
           });
