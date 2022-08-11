@@ -73,6 +73,7 @@ const populateMarkers = () => {
   //     // TODO: render dropdown
   //   });
   // });
+
 };
 
 window.initMap = initMap;
