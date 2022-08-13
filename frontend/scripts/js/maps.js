@@ -24,7 +24,7 @@ const populateMarkers = () => {
           },
           title:
             "Location Place or Anything that you want to tooltip while hovering",
-          icon: "/assets/salon-icon.svg",
+          icon: "/assets/salon-pin.svg",
           label: _salon.name,
         };
         // let marker = new google.maps.Marker(_item);
@@ -50,14 +50,14 @@ const populateMarkers = () => {
   //     position: { lat: -1.3912000010785663, lng: 36.767465401580075 },
   //     title:
   //       "Location Place or Anything that you want to tooltip while hovering",
-  //     icon: "/assets/salon-icon.svg",
+  //     icon: "/assets/salon-pin.svg",
   //     label: "Salon",
   //   },
   //   {
   //     position: { lat: -1.397654424538989, lng: 36.76316167309762 },
   //     title:
   //       "Location Place or Anything that you want to tooltip while hovering",
-  //     icon: "/assets/salon-icon.svg",
+  //     icon: "/assets/salon-pin.svg",
   //     label: "salon.svg",
   //   },
   // ].map((_item) => {
@@ -73,7 +73,6 @@ const populateMarkers = () => {
   //     // TODO: render dropdown
   //   });
   // });
-
 };
 
 window.initMap = initMap;

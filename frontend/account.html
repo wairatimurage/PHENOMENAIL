@@ -101,16 +101,14 @@
 	    	}
 
       registerBtn.addEventListener("click", (event) =>{
-     
         event.preventDefault();
-        
 
         const _user = {
           username: document.getElementById("username").value,
           email: document.getElementById("email").value,
           password: document.getElementById("password").value,
-
         };
+
         registerAccount(_user).then(_res=>{
           if(_res.message){
             alert(_res.message);
@@ -136,7 +134,11 @@
           password: document.getElementById("password").value,
         };
 
-        userLogin(_user);
+        userLogin(_user).then(_res=>{
+          console.log("ss: ", _res)
+        }).catch(_err=>{
+          console.log("err: ", _err)
+        });
 
       })
     </script>

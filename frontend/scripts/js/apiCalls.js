@@ -49,7 +49,6 @@ const prepaidDetails = (_id, _data) => {
   }).then((_res) => _res.json());
 };
 
-console.log("some");
 // fetch details of payment already made
 // {payable: 33, clientDetails: {id, ema}}
 const alreadyPaid = (_booking) => {

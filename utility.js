@@ -21,6 +21,18 @@ const getUserByEmail = async (email) => {
     .catch((err) => handleError(err));
 };
 
+const getUserByUsername = async (_username) => {
+  // check across the three account collections to find user with given email
+  const handleError = (err) => (err ? err : null);
+  return await User.findOne({ username: _username })
+    .then((user) => {
+      if (user && _username !== undefined) {
+        return user;
+      }
+    })
+    .catch((err) => handleError(err));
+};
+
 const getUserByDBId = async (id) => {
   // check across the three account collections to find user with given id
   const handleError = (err) => (err ? err : null);
@@ -51,4 +63,5 @@ module.exports = {
   getUserByDBId,
   getUserByEmail,
   checkAuth,
+  getUserByUsername,
 };

@@ -16,7 +16,7 @@
 2. Run `npm install` to install dependencies.
 3. Run `npm run gen:keypair` to generate encryption keypair.
 4. Run `npm start` to start server or run dev server with hot reload `npm run start:dev`.
-5. Navigate to `localhost:3000` on browser.
+5. Navigate to `localhost:3400` on browser.
 
 ## TODO LIST
 
