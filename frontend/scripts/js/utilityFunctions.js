@@ -86,3 +86,13 @@ function menutoggle() {
     MenuItems.style.maxHeight = "0px";
   }
 }
+
+const checkAuth = () => {
+  return fetch("/auth/current-user")
+    .then((_res) => {
+      console.log("current: ", _res);
+    })
+    .catch((_err) => {
+      console.log("current error: ", _err);
+    });
+};

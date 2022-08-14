@@ -74,5 +74,9 @@
     };
 
     populateTable(sampleAppointments);
+
+    checkAuth().then((_res) => {
+      console.log("current: ", _res);
+    });
   </script>
 </html>

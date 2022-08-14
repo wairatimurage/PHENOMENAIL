@@ -17,15 +17,30 @@ const populateMarkers = () => {
     .then((_res) => {
       console.log("markers: ", _res);
       _res.map((_salon) => {
+        var markerIcon = {
+          url: "/assets/salon-pin.svg",
+          size: new google.maps.Size(60, 60),
+          scaledSize: new google.maps.Size(30, 30),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(32, 65),
+          labelOrigin: new google.maps.Point(15, 30),
+        };
+
         let _item = {
           position: {
             lat: parseFloat(_salon.location.latitude),
             lng: parseFloat(_salon.location.longitude),
           },
-          title:
-            "Location Place or Anything that you want to tooltip while hovering",
-          icon: "/assets/salon-pin.svg",
-          label: _salon.name,
+          title: "Salon Location",
+          // icon: "/assets/salon-pin.svg",
+          icon: markerIcon,
+          label: {
+            text: _salon.name,
+            // color: "#b3689b",
+            color: "#0e1a25",
+            fontWeight: "600",
+            fontSize: "16px",
+          },
         };
         // let marker = new google.maps.Marker(_item);
         let marker = new google.maps.Marker({ ..._item, map: google.maps.Map });
