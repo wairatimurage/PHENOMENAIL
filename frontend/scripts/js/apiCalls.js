@@ -17,6 +17,12 @@ const bookAppointment = (_appointment) => {
   }).then((_res) => _res.json());
 };
 
+const fetchAppointments = () => {
+  return fetch(apiUrl + "/api/salon/bookings", {
+    headers: appendHeaders(),
+  }).then((_res) => _res.json());
+};
+
 const addSalon = (_salon) => {
   return fetch(apiUrl + "/api/salon", {
     method: "POST",
