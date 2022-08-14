@@ -4,14 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./scripts/js/utilityFunctions.js"></script>
+    <link rel="stylesheet" href="scripts/css/style.css" />
     <title>Profile</title>
   </head>
   <body>
-    <div class="table-responsive">
-      <table id="appointments-table" class="table table-centered"></table>
+    <div class="header">
+      <div class="navbar">
+        <div class="logo">
+          <a href="index.html"><img src="assets/logo.png" width="300 px" /></a>
+        </div>
+        <nav>
+          <ul id="MenuItems">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/account">Account</a></li>
+          </ul>
+        </nav>
+
+        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()" />
+      </div>
+    </div>
+    <div class="container">
+      <h2>My appointments</h2>
+      <div class="table-responsive">
+        <table id="appointments-table" class="table table-centered"></table>
+      </div>
     </div>
   </body>
+  <script src="./scripts/js/utilityFunctions.js"></script>
   <script>
     let table = document.getElementById("appointments-table");
     //  {

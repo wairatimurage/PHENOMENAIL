@@ -4,14 +4,30 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="scripts/css/style.css" />
     <script src="./form.js"></script>
-    <script src="./js/apiCalls.js"></script>
-    <script src="./js/utilityFunctions.js"></script>
+    <script src="./scripts/js/apiCalls.js"></script>
     <title>Admin</title>
   </head>
 
   <body>
+    <div class="header">
+      <div class="navbar">
+        <div class="logo">
+          <a href="index.html"><img src="assets/logo.png" width="300 px" /></a>
+        </div>
+        <nav>
+          <ul id="MenuItems">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="/admin">Admin</a></li>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/account">Account</a></li>
+          </ul>
+        </nav>
+
+        <img src="images/menu.png" class="menu-icon" onclick="menutoggle()" />
+      </div>
+    </div>
     <section id="admin-details">
       <!-- <p id="salon-name"></p>
       <p id="role"></p> -->
@@ -87,6 +103,7 @@
       </div>
     </div>
   </div>
+  <script src="./scripts/js/utilityFunctions.js"></script>
   <script>
     // helper functions
     const addSalonFunc = (event) => {
@@ -156,6 +173,7 @@
     // api calls
     fetchSalons()
       .then((_res) => {
+        console.log("soem: ", _res);
         populateSalonsList(_res);
       })
       .catch(handleResponseErrors);

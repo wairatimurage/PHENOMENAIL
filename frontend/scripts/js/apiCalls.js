@@ -80,10 +80,11 @@ const registerAccount = (_user) => {
     body: JSON.stringify(_user),
   })
     .then((_response) => {
+      console.log("json: ", _response);
       return _response.json();
     })
     .catch((_err) => {
-      console.log("err: ", _err);
+    console.log("err: ", _err);
       alert("Sorry! An error occured, please try again.");
     });
 };
@@ -96,6 +97,7 @@ const userLogin = (_user) => {
     body: JSON.stringify(_user),
   })
     .then((_response) => {
+      console.log("json: ", _response);
       return _response.json();
     })
     .catch((_err) => {
