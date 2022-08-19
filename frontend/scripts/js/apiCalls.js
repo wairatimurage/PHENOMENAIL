@@ -88,9 +88,9 @@ const registerAccount = (_user) => {
     .then((_response) => {
       console.log("json: ", _response);
       if (_response.redirected) {
-        window.location.href = _response.url;
+        return (window.location.href = _response.url);
       }
-      // return _response.json();
+      return _response.json();
     })
     .catch((_err) => {
       console.log("err: ", _err);
@@ -108,9 +108,9 @@ const userLogin = (_user) => {
     .then((_response) => {
       console.log("json: ", _response);
       if (_response.redirected) {
-        window.location.href = _response.url;
+        return (window.location.href = _response.url);
       }
-      // return _response.json();
+      return _response.json();
     })
     .catch((_err) => {
       console.log("err: ", _err);

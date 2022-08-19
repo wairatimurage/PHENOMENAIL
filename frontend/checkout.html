@@ -61,6 +61,19 @@
 
     const completeBooking = (event) => {
       event.preventDefault();
+      bookAppointment(currentOrder)
+        .then((_res) => {
+          if (_res.errorMessage) {
+            return alert(_res.errorMessage);
+          }
+          console.log("res: ", _res);
+          alert(_res.message);
+          window.location.href = "/";
+        })
+        .catch((_err) => {
+          alert("Sorry! An error occured. Please try again.");
+          console.log("ss: ", _err);
+        });
       console.log(currentOrder);
     };
     // console.log("payment: ", prepaidDetails);

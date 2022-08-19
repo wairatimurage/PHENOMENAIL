@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const bookingModel = new Schema({
   salon: { type: Object },
   client: { type: Object },
-  appontment: { type: Object },
+  appointment: { type: Object },
   time: { type: Date },
 });
 

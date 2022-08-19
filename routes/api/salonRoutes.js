@@ -49,20 +49,21 @@ const salonRoutes = (Salon, Booking) => {
     });
 
   salonRouter.route("/booking").post((req, res) => {
+    console.log("init: ", req.body);
     try {
-      req.user = {};
+      // req.user = {};
       const _newBooking = new Booking({
         ...req.body,
-        client: req.user,
+        client: req.body.client,
         time: new Date(),
       });
-
+      console.log(_newBooking);
       _newBooking.save((err) => {
         if (err) throw err;
       });
 
       return res.status(201).json({
-        message: "Successfully created",
+        message: "Your appointment has been successfully booked.",
         booking: _newBooking,
       });
     } catch (error) {
@@ -95,6 +96,7 @@ const salonRoutes = (Salon, Booking) => {
 
   //   fetch individuals bookings
   salonRouter.route("/my-bookings").get((req, res) => {
+    console.log("called here");
     req.user = {};
     // TODO: find by user ID
     Booking.find({})

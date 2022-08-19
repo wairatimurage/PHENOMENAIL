@@ -3,12 +3,11 @@ const passport = require("passport");
 const path = require("path");
 const axios = require("axios");
 const { v4: uuidv4 } = require("uuid");
+const { CustomError, checkAuth } = require("../../utility");
 const {
-  calculateOrderTotals,
-  CustomError,
-  checkAuth,
-} = require("../../utility");
-const { handlePaymentErrors } = require("../../errorHandlers");
+  handlePaymentErrors,
+  handleServerErrors,
+} = require("../../errorHandlers");
 require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 
 const flutterwaveCall = async (_data) => {
@@ -30,6 +29,7 @@ const flutterwaveCall = async (_data) => {
     },
   });
 
+  console.log("called");
   return axios({
     method: "post",
     headers: {
@@ -46,6 +46,7 @@ const flutterwaveCall = async (_data) => {
       throw new CustomError(_data.message, "paymentError");
     })
     .catch((_err) => {
+      console.log(_err);
       throw new CustomError(
         "Problem connecting to Payment System.",
         "paymentError"
@@ -107,17 +108,20 @@ const paymentRoutes = (Payment, Order) => {
               _payment.order.appointment.paymentMethod ===
                 req.body.appointment.paymentMethod
           );
+
           // console.log("open check: ", _openPayments);
           if (_openPayments) {
-            // console.log(
-            //   "pre check: ",
-            //   // _results,
-            //   _results.length > 0,
-            //   _results.length
-            // );
+            console.log(
+              "pre check: ",
+              // _results,
+              _results.length > 0,
+              _results.length
+            );
+
             return res
               .status(201)
               .json({ redirectUrl: _openPayments.payment.link });
+            console.log("ssss");
             // TODO: log error
             // throw new CustomError(
             //   "Similar transaction currently underway.",
@@ -128,7 +132,6 @@ const paymentRoutes = (Payment, Order) => {
           return false;
         });
       };
-
       await _newPayment.validateSync();
 
       if (!(await openPayment())) {
@@ -145,6 +148,7 @@ const paymentRoutes = (Payment, Order) => {
           totalPayable: _newPayment.totalPayable,
           bookingFee: _newPayment.bookingFee,
         };
+
         const _savedPayment = await _newPayment
           .save()
           .then(async (_saved) => _saved);
@@ -164,6 +168,13 @@ const paymentRoutes = (Payment, Order) => {
             .json({ redirectUrl: _flutterwave_call.data.link });
         });
       }
+      // await openPayment()
+      //   .then((_res) => {
+      //     console.log("here open: ", _res);
+      //   })
+      //   .catch((_err) => {
+      //     console.log(_err);
+      //   });
     } catch (_err) {
       handlePaymentErrors(_err);
       return res.status(421).json({

@@ -33,6 +33,7 @@
     </div>
   </body>
   <script src="./scripts/js/utilityFunctions.js"></script>
+  <script src="./scripts/js/apiCalls.js"></script>
   <script>
     let table = document.getElementById("appointments-table");
     //  {
@@ -73,11 +74,13 @@
       }
     };
 
-    
-    populateTable(sampleAppointments);
-
-    checkAuth().then((_res) => {
-      console.log("current: ", _res);
-    });
+    fetchMyBookings()
+      .then((_res) => {
+        console.log("appointments: ", _res);
+        populateTable(_res);
+      })
+      .catch((_err) => {
+        console.log("err: ", _err);
+      });
   </script>
 </html>
